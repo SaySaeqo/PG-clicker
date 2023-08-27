@@ -6,13 +6,15 @@ using UnityEngine.UI;
 
 public class ClickerManager : MonoBehaviour
 {
+    [Header("Click Managment")]
     public ClikcerUI clikcerUI;
     public Button clickerButton;
     public Button resetButton;
     public Button lecturerTabButton;
     public Button upgradeTabButton;
 
-    public Texture2D student;
+    [Header("Student Spawner")]
+    public GameObject[] student;
 
     private int studentCounter = 0;
     private int socialMoney = 0;
@@ -30,8 +32,11 @@ public class ClickerManager : MonoBehaviour
     {
         studentCounter++;
         clikcerUI.UpdateStudentCounter(studentCounter);
-        
-        //Instantiate(student, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+
+        float randX = UnityEngine.Random.Range(3f, 7f);
+        float randY = UnityEngine.Random.Range(-2f, 1f);
+        int randSpawn = UnityEngine.Random.Range(0, student.Length);
+        Instantiate(student[randSpawn], new Vector2(randX, randY), Quaternion.identity);
     }
 
     private void resetGame()
