@@ -2975,7 +2975,7 @@ MonoBehaviour:
   clikcerUI: {fileID: 1561469310}
   clickerButton: {fileID: 588949775}
   resetButton: {fileID: 596039910}
-  student: {fileID: 0}
+  student: {fileID: 7980746267309762078, guid: 61616efee69dc1144a84e1db7c717e27, type: 3}
 --- !u!4 &1561469312
 Transform:
   m_ObjectHideFlags: 0
