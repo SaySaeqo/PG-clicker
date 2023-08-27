@@ -12,7 +12,7 @@ public class ClickerManager : MonoBehaviour
     public Button resetButton;
 
     [Header("Student Spawner")]
-    public GameObject student;
+    public GameObject[] student;
 
     private int studentCounter = 0;
     private int socialMoney = 0;
@@ -31,7 +31,8 @@ public class ClickerManager : MonoBehaviour
 
         float randX = UnityEngine.Random.Range(3f, 7f);
         float randY = UnityEngine.Random.Range(-2f, 1f);
-        Instantiate(student, new Vector2(randX, randY), Quaternion.identity);
+        int randSpawn = UnityEngine.Random.Range(0, student.Length);
+        Instantiate(student[randSpawn], new Vector2(randX, randY), Quaternion.identity);
     }
 
     private void resetGame()

@@ -2975,7 +2975,12 @@ MonoBehaviour:
   clikcerUI: {fileID: 1561469310}
   clickerButton: {fileID: 588949775}
   resetButton: {fileID: 596039910}
-  student: {fileID: 7980746267309762078, guid: 61616efee69dc1144a84e1db7c717e27, type: 3}
+  student:
+  - {fileID: 7980746267309762078, guid: d69568f792d30f346af88ce9b95d5b3c, type: 3}
+  - {fileID: 7980746267309762078, guid: f6ec26a6bcfa78e429928a95786cda4a, type: 3}
+  - {fileID: 7980746267309762078, guid: 9d5c3a45f45e9474686ebc865de4bcf1, type: 3}
+  - {fileID: 7980746267309762078, guid: e302417425120a041b7181840ea9f9a3, type: 3}
+  - {fileID: 7980746267309762078, guid: c21f18ff1e1e6cf4cb29043a00b5c7ce, type: 3}
 --- !u!4 &1561469312
 Transform:
   m_ObjectHideFlags: 0
