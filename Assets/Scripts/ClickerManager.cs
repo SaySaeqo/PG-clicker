@@ -36,8 +36,9 @@ public class ClickerManager : MonoBehaviour
 
     private void resetGame()
     {
-        var result = (Math.Pow(2, studentCounter) - 1000) / 1000;
-        socialMoney += (int)Math.Floor(result);
+        var x = studentCounter;
+        var y = x / 100 - 100;
+        socialMoney += Math.Max(y, 0);
         studentCounter = 0;
         clikcerUI.UpdateStudentCounter(studentCounter);
         clikcerUI.UpdateCashCounter(socialMoney);
