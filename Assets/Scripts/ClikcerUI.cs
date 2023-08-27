@@ -9,6 +9,8 @@ public class ClikcerUI : MonoBehaviour
 {
     public TextMeshProUGUI studentCounterText;
     public TextMeshProUGUI cashCounterText;
+    public Image upgradeTab;
+    public Image lecturerTab;
 
     public void UpdateStudentCounter(int amount)
     {
@@ -18,5 +20,12 @@ public class ClikcerUI : MonoBehaviour
     public void UpdateCashCounter(int amount)
     {
         cashCounterText.text = $"<sprite=\"cash\" index=0>x{amount}";
+    }
+
+    public void ToggleTabs()
+    {
+        var currentUpgradeTabStatus = upgradeTab.gameObject.activeSelf;
+        upgradeTab.gameObject.SetActive(!currentUpgradeTabStatus);
+        lecturerTab.gameObject.SetActive(currentUpgradeTabStatus);
     }
 }

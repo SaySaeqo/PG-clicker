@@ -9,6 +9,8 @@ public class ClickerManager : MonoBehaviour
     public ClikcerUI clikcerUI;
     public Button clickerButton;
     public Button resetButton;
+    public Button lecturerTabButton;
+    public Button upgradeTabButton;
 
     public Texture2D student;
 
@@ -20,6 +22,8 @@ public class ClickerManager : MonoBehaviour
         clikcerUI.UpdateStudentCounter(studentCounter);
         clickerButton.onClick.AddListener(failStudent);
         resetButton.onClick.AddListener(resetGame);
+        upgradeTabButton.onClick.AddListener(clikcerUI.ToggleTabs);
+        lecturerTabButton.onClick.AddListener(clikcerUI.ToggleTabs);
     }
 
     private void failStudent()
