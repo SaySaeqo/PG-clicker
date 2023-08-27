@@ -8,6 +8,7 @@ public class ClickerManager : MonoBehaviour
 {
     public ClikcerUI clikcerUI;
     public Button clickerButton;
+    public Button resetButton;
 
     public Texture2D student;
 
@@ -18,7 +19,7 @@ public class ClickerManager : MonoBehaviour
     {
         clikcerUI.UpdateStudentCounter(studentCounter);
         clickerButton.onClick.AddListener(failStudent);
-        clickerButton.onClick.AddListener(resetGame);
+        resetButton.onClick.AddListener(resetGame);
     }
 
     private void failStudent()
@@ -30,7 +31,10 @@ public class ClickerManager : MonoBehaviour
 
     private void resetGame()
     {
-        socialMoney += (int)Math.Log(studentCounter);
+        var result = (Math.Pow(2, studentCounter) - 1000) / 1000;
+        socialMoney += (int)Math.Floor(result);
         studentCounter = 0;
+        clikcerUI.UpdateStudentCounter(studentCounter);
+        clikcerUI.UpdateCashCounter(socialMoney);
     }
 }
