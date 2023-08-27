@@ -8,7 +8,8 @@ public class ClickerManager : MonoBehaviour
 {
     public ClikcerUI clikcerUI;
     public Button clickerButton;
-    public Button resetButton;
+
+    public Texture2D student;
 
     private int studentCounter = 0;
     private int socialMoney = 0;
@@ -24,6 +25,7 @@ public class ClickerManager : MonoBehaviour
     {
         studentCounter++;
         clikcerUI.UpdateStudentCounter(studentCounter);
+        Instantiate(student, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
     }
 
     private void resetGame()
