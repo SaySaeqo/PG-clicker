@@ -26,7 +26,8 @@ public class ClickerManager : MonoBehaviour
     {
         studentCounter++;
         clikcerUI.UpdateStudentCounter(studentCounter);
-        Instantiate(student, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        
+        //Instantiate(student, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
     }
 
     private void resetGame()
