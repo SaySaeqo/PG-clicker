@@ -10,6 +10,6 @@ public class ClikcerUI : MonoBehaviour
 
     public void UpdateUI(int amount)
     {
-        counterText.text = $"X {amount}";
+        counterText.text = $"<sprite=\"student_sad_icon\" index=0>x{amount}";
     }
 }

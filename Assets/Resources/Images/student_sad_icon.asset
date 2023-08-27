@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: student_sad_icon
   m_EditorClassIdentifier: 
   hashCode: -1103790316
-  material: {fileID: 2520680455421225021}
+  material: {fileID: 6784293352143767059}
   materialHashCode: 0
   m_Version: 1.1.0
   m_FaceInfo:
@@ -38,7 +38,7 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: 9f22a6b4a261f794ca837e840a85a834, type: 3}
+  spriteSheet: {fileID: 2800000, guid: 846adf65f2b0fe24da24c796df2e7516, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
@@ -62,10 +62,10 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: 21300000, guid: 9f22a6b4a261f794ca837e840a85a834, type: 3}
+    sprite: {fileID: 21300000, guid: 846adf65f2b0fe24da24c796df2e7516, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
---- !u!21 &2520680455421225021
+--- !u!21 &6784293352143767059
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 1
@@ -89,7 +89,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9f22a6b4a261f794ca837e840a85a834, type: 3}
+        m_Texture: {fileID: 2800000, guid: 846adf65f2b0fe24da24c796df2e7516, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
