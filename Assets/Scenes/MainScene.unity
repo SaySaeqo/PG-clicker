@@ -580,7 +580,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: [{fileID: 1981307315}]
+  m_Children:
+  - {fileID: 1981307315}
   m_Father: {fileID: 1637143748}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.82932264, y: 0.822}
@@ -1580,6 +1581,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920418530}
   m_CullTransparentMesh: 1
+--- !u!1 &1012785338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1012785339}
+  m_Layer: 0
+  m_Name: PGDoor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1012785339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012785338}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.81, y: -0.81, z: 0.51050484}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1122177520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,7 +1646,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.15400001, y: 0.8642069}
   m_AnchorMax: {x: 0.82932264, y: 1}
-  m_AnchoredPosition: {x: -0.17758179, y: 0.71987915}
+  m_AnchoredPosition: {x: -0.17758179, y: 0.71984863}
   m_SizeDelta: {x: -1.6000977, y: -1.4400024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1122177522
@@ -2513,7 +2545,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: [{fileID: 1226833771}]
+  m_Children:
+  - {fileID: 1226833771}
   m_Father: {fileID: 1637143748}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.022000002, y: 0.8174829}
@@ -3223,7 +3256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1561469312}
   - component: {fileID: 1561469311}
-  - component: {fileID: 1561469310}
+  - component: {fileID: 1561469313}
   m_Layer: 0
   m_Name: ClickerManager
   m_TagString: Untagged
@@ -3231,22 +3264,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1561469310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1561469309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9bdcd231c298143b9dc60f22675dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  studentCounterText: {fileID: 257105784}
-  cashCounterText: {fileID: 1980455185}
-  upgradeTab: {fileID: 492233588}
-  lecturerTab: {fileID: 578814055}
 --- !u!114 &1561469311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3259,11 +3276,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e33a761a642788459f188318b015f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clikcerUI: {fileID: 1561469310}
+  clikcerUI: {fileID: 1561469313}
   clickerButton: {fileID: 588949775}
   resetButton: {fileID: 596039910}
   lecturerTabButton: {fileID: 282493175}
   upgradeTabButton: {fileID: 1426544365}
+  door: {fileID: 1012785338}
   student:
   - {fileID: 7980746267309762078, guid: d69568f792d30f346af88ce9b95d5b3c, type: 3}
   - {fileID: 7980746267309762078, guid: f6ec26a6bcfa78e429928a95786cda4a, type: 3}
@@ -3285,6 +3303,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1561469313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561469309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9bdcd231c298143b9dc60f22675dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  studentCounterText: {fileID: 257105784}
+  cashCounterText: {fileID: 1980455185}
+  upgradeTab: {fileID: 492233588}
+  lecturerTab: {fileID: 578814055}
 --- !u!1 &1564086840
 GameObject:
   m_ObjectHideFlags: 0
@@ -3976,3 +4010,4 @@ SceneRoots:
   - {fileID: 1434030109}
   - {fileID: 1561469312}
   - {fileID: 1564086844}
+  - {fileID: 1012785339}

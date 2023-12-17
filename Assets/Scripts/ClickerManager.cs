@@ -13,6 +13,8 @@ public class ClickerManager : MonoBehaviour
     public Button lecturerTabButton;
     public Button upgradeTabButton;
 
+    public GameObject door;
+
     [Header("Student Spawner")]
     public GameObject[] student;
 
@@ -33,10 +35,15 @@ public class ClickerManager : MonoBehaviour
         studentCounter++;
         clikcerUI.UpdateStudentCounter(studentCounter);
 
-        float randX = UnityEngine.Random.Range(3f, 7f);
-        float randY = UnityEngine.Random.Range(-2f, 1f);
+        var doorPosition = door.transform.position;
+        var MAX_DISTANCE_FROM_DOOR = 1f;
+        var randX = doorPosition.x + UnityEngine.Random.Range(-MAX_DISTANCE_FROM_DOOR, MAX_DISTANCE_FROM_DOOR);
+        var randY = doorPosition.y + UnityEngine.Random.Range(-MAX_DISTANCE_FROM_DOOR, MAX_DISTANCE_FROM_DOOR);
+
         int randSpawn = UnityEngine.Random.Range(0, student.Length);
-        Instantiate(student[randSpawn], new Vector2(randX, randY), Quaternion.identity);
+        var created = Instantiate(student[randSpawn], new Vector2(randX, randY), Quaternion.identity);
+        var RIGHT = 180;
+        created.transform.Rotate(new Vector3(0,randX > doorPosition.x ? RIGHT : 0,0));
     }
 
     private void resetGame()
