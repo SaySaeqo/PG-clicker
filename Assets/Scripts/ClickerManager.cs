@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ClickerManager : MonoBehaviour
 {
+    public static UnityEvent<int, int> OnItemBought = new UnityEvent<int, int>();
+
     [Header("Click Managment")]
-    public ClikcerUI clikcerUI;
+    public ClikcerUI clickerUI;
     public Button clickerButton;
     public Button resetButton;
     public Button lecturerTabButton;
@@ -20,6 +23,7 @@ public class ClickerManager : MonoBehaviour
     public GameObject[] student;
 
     private int studentCounter = 0;
+    private int studentsPerSecond = 0;
     private int socialMoney = 0;
 
     [Header("Lecturers and Upgrades Panel")]
@@ -27,22 +31,45 @@ public class ClickerManager : MonoBehaviour
 
     private void Start()
     {
-        clikcerUI.UpdateStudentCounter(studentCounter);
+        clickerUI.UpdateStudentCounter(studentCounter);
         clickerButton.onClick.AddListener(failStudent);
         resetButton.onClick.AddListener(resetGame);
-        upgradeTabButton.onClick.AddListener(clikcerUI.ToggleTabs);
-        lecturerTabButton.onClick.AddListener(clikcerUI.ToggleTabs);
+        upgradeTabButton.onClick.AddListener(clickerUI.ToggleTabs);
+        lecturerTabButton.onClick.AddListener(clickerUI.ToggleTabs);
 
         foreach(Lecturer lecturer in lecturers)
         {
             lecturerTab.AddLecturer(lecturer);
+        }
+
+        OnItemBought.AddListener(BuyItem);
+
+        InvokeRepeating(nameof(AddStudentsPerSecond), 0f, 1f);
+    }
+
+    private void AddStudentsPerSecond()
+    {
+        if (studentsPerSecond > 0)
+        {
+            studentCounter += studentsPerSecond;
+            clickerUI.UpdateStudentCounter(studentCounter);
+        }
+    }
+
+    private void BuyItem(int price, int power)
+    {
+        if(price <= studentCounter)
+        {
+            studentsPerSecond += power;
+            studentCounter -= price;
+            clickerUI.UpdateStudentCounter(studentCounter);
         }
     }
 
     private void failStudent()
     {
         studentCounter++;
-        clikcerUI.UpdateStudentCounter(studentCounter);
+        clickerUI.UpdateStudentCounter(studentCounter);
 
         var doorPosition = door.transform.position;
         var MAX_DISTANCE_FROM_DOOR = 1f;
@@ -61,7 +88,7 @@ public class ClickerManager : MonoBehaviour
         var y = x / 100 - 100;
         socialMoney += Math.Max(y, 0);
         studentCounter = 0;
-        clikcerUI.UpdateStudentCounter(studentCounter);
-        clikcerUI.UpdateCashCounter(socialMoney);
+        clickerUI.UpdateStudentCounter(studentCounter);
+        clickerUI.UpdateCashCounter(socialMoney);
     }
 }

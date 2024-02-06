@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class ShopLecturerUI : MonoBehaviour
 {
@@ -18,5 +19,12 @@ public class ShopLecturerUI : MonoBehaviour
         lecturerTitle.text = lecturer.lecturerName;
         lecturerPower.text = lecturer.power.ToString();
         lecturerCost.text = lecturer.price.ToString();
+
+        buyButton.onClick.AddListener(delegate { UpgradeLecturer(lecturer.price, lecturer.power); });
+    }
+
+    private void UpgradeLecturer(int price, int power)
+    {
+        ClickerManager.OnItemBought?.Invoke(price, power);
     }
 }
