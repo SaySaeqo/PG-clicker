@@ -2362,7 +2362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e33a761a642788459f188318b015f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clikcerUI: {fileID: 1561469313}
+  clickerUI: {fileID: 1561469313}
   clickerButton: {fileID: 588949775}
   resetButton: {fileID: 596039910}
   lecturerTabButton: {fileID: 282493175}
@@ -2380,8 +2380,11 @@ MonoBehaviour:
   - {fileID: 7980746267309762078, guid: e302417425120a041b7181840ea9f9a3, type: 3}
   - {fileID: 7980746267309762078, guid: c21f18ff1e1e6cf4cb29043a00b5c7ce, type: 3}
   lecturers:
-  - {fileID: 11400000, guid: 496d3da193801d54a93a058f9361a3f5, type: 2}
-  - {fileID: 11400000, guid: 255156ab1b4b29d4b8aefede4740ab4c, type: 2}
+  - {fileID: 11400000, guid: b1d5af9c615526f49ba47d62fd4c1cc0, type: 2}
+  - {fileID: 11400000, guid: cdbc806bd86d5ee41b157bfc217fe8c5, type: 2}
+  - {fileID: 11400000, guid: d5a6cf9eaa860ec4f924c1293ec7f291, type: 2}
+  - {fileID: 11400000, guid: 024c6e87f821e7a4cb22624dd4edac28, type: 2}
+  - {fileID: 11400000, guid: 0c349357af54877498b491e6ebb091e5, type: 2}
 --- !u!4 &1561469312
 Transform:
   m_ObjectHideFlags: 0
