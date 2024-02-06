@@ -13,10 +13,20 @@ public class ClickerManager : MonoBehaviour
     public Button lecturerTabButton;
     public Button upgradeTabButton;
 
+
+    [SerializeField] public List<ShopUpgradeUI> upgrades;
+
+
     public GameObject door;
 
     [Header("Student Spawner")]
     public GameObject[] student;
+    
+    private double globalStudentMultiplier = 1;
+
+    private Dictionary<string, double> lecturersMultipliers = new Dictionary<string, double>();
+
+    private int studentCounterAvalange = 0;
 
     private int studentCounter = 0;
     private int socialMoney = 0;
@@ -28,11 +38,18 @@ public class ClickerManager : MonoBehaviour
         resetButton.onClick.AddListener(resetGame);
         upgradeTabButton.onClick.AddListener(clikcerUI.ToggleTabs);
         lecturerTabButton.onClick.AddListener(clikcerUI.ToggleTabs);
+        upgrades.ForEach(upgrade => upgrade.buyButton.onClick.AddListener(() => BuyUpgrade(upgrade)));
+        InvokeRepeating("FailStudentsAvalage", 10.0f, 10.0f);
+    }
+    
+    void Update()
+    {
+
     }
 
     private void failStudent()
     {
-        studentCounter++;
+        studentCounter += (int)Math.Ceiling(globalStudentMultiplier);
         clikcerUI.UpdateStudentCounter(studentCounter);
 
         var doorPosition = door.transform.position;
@@ -46,6 +63,15 @@ public class ClickerManager : MonoBehaviour
         created.transform.Rotate(new Vector3(0,randX > doorPosition.x ? RIGHT : 0,0));
     }
 
+    void FailStudentsAvalage()
+    {
+        if (studentCounterAvalange > 0)
+        {
+            studentCounter += (int)Math.Floor((double)studentCounter / studentCounterAvalange);
+            clikcerUI.UpdateStudentCounter(studentCounter);
+        }
+    }
+
     private void resetGame()
     {
         var x = studentCounter;
@@ -56,5 +82,29 @@ public class ClickerManager : MonoBehaviour
         studentCounter = 0;
         clikcerUI.UpdateStudentCounter(studentCounter);
         clikcerUI.UpdateCashCounter(socialMoney);
+    }
+
+    void BuyUpgrade(ShopUpgradeUI upgradeUI)
+    {
+        if (socialMoney < upgradeUI.cost) return;
+        socialMoney -= upgradeUI.cost;
+        upgradeUI.Buy();
+        upgradeUI.cost *= 2;
+        upgradeUI.UpdateDescriptionText();
+
+        switch (upgradeUI.name)
+        {
+            case "Super komputer":
+                globalStudentMultiplier *= 1.5;
+                break;
+            case "Jaskinia Lebiedzia":
+                lecturersMultipliers["Lebiedz"] = 5.0;
+                break;
+            case "Doktoranci":
+                studentCounterAvalange = 100;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 }
