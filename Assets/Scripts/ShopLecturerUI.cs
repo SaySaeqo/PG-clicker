@@ -17,8 +17,8 @@ public class ShopLecturerUI : MonoBehaviour
     {
         lecturerFace.sprite = lecturer.face;
         lecturerTitle.text = lecturer.lecturerName;
-        lecturerPower.text = lecturer.power.ToString();
-        lecturerCost.text = lecturer.price.ToString();
+        lecturerPower.text = "Moc: " + lecturer.power.ToString();
+        lecturerCost.text = "Koszt: " + lecturer.price.ToString();
 
         buyButton.onClick.AddListener(delegate { UpgradeLecturer(lecturer.price, lecturer.power); });
     }
