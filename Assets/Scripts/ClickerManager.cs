@@ -10,17 +10,27 @@ public class ClickerManager : MonoBehaviour
     public static UnityEvent<int, int> OnItemBought = new UnityEvent<int, int>();
 
     [Header("Click Managment")]
-    public ClikcerUI clickerUI;
+    public ClickerUI clickerUI;
     public Button clickerButton;
     public Button resetButton;
     public Button lecturerTabButton;
     public Button upgradeTabButton;
+
+
+    [SerializeField] public List<ShopUpgradeUI> upgrades;
+
 
     public GameObject door;
     public LecturerTabUI lecturerTab;
 
     [Header("Student Spawner")]
     public GameObject[] student;
+    
+    private double globalStudentMultiplier = 1;
+
+    private Dictionary<string, double> lecturersMultipliers = new Dictionary<string, double>();
+
+    private int studentCounterAvalange = 0;
 
     private int studentCounter = 0;
     private int studentsPerSecond = 0;
@@ -41,9 +51,9 @@ public class ClickerManager : MonoBehaviour
         {
             lecturerTab.AddLecturer(lecturer);
         }
-
+        upgrades.ForEach(upgrade => upgrade.buyButton.onClick.AddListener(() => BuyUpgrade(upgrade)));
+        InvokeRepeating("FailStudentsAvalage", 10.0f, 10.0f);
         OnItemBought.AddListener(BuyItem);
-
         InvokeRepeating(nameof(AddStudentsPerSecond), 0f, 1f);
     }
 
@@ -68,7 +78,7 @@ public class ClickerManager : MonoBehaviour
 
     private void failStudent()
     {
-        studentCounter++;
+        studentCounter += (int)Math.Ceiling(globalStudentMultiplier);
         clickerUI.UpdateStudentCounter(studentCounter);
 
         var doorPosition = door.transform.position;
@@ -82,13 +92,49 @@ public class ClickerManager : MonoBehaviour
         created.transform.Rotate(new Vector3(0,randX > doorPosition.x ? RIGHT : 0,0));
     }
 
+    void FailStudentsAvalage()
+    {
+        if (studentCounterAvalange > 0)
+        {
+            studentCounter += (int)Math.Floor((double)studentCounter / studentCounterAvalange);
+            clickerUI.UpdateStudentCounter(studentCounter);
+        }
+    }
+
     private void resetGame()
     {
         var x = studentCounter;
-        var y = x / 100 - 100;
+        const int MIN_STUDENTS = 0;
+        const int STUDENTS_PER_CASH = 10;
+        int y = (x-MIN_STUDENTS) / STUDENTS_PER_CASH;
         socialMoney += Math.Max(y, 0);
         studentCounter = 0;
         clickerUI.UpdateStudentCounter(studentCounter);
         clickerUI.UpdateCashCounter(socialMoney);
+    }
+
+    void BuyUpgrade(ShopUpgradeUI upgradeUI)
+    {
+        if (socialMoney < upgradeUI.cost) return;
+        socialMoney -= upgradeUI.cost;
+        upgradeUI.Buy();
+        upgradeUI.cost *= 2;
+        upgradeUI.UpdateDescriptionText();
+        clickerUI.UpdateCashCounter(socialMoney);
+
+        switch (upgradeUI.name)
+        {
+            case "Super komputer":
+                globalStudentMultiplier *= 1.5;
+                break;
+            case "Jaskinia Lebiedzia":
+                lecturersMultipliers["Lebiedz"] = 5.0;
+                break;
+            case "Doktoranci":
+                studentCounterAvalange = 100;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 }
