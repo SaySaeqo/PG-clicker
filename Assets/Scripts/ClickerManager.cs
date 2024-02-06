@@ -18,6 +18,7 @@ public class ClickerManager : MonoBehaviour
 
 
     public GameObject door;
+    public LecturerTabUI lecturerTab;
 
     [Header("Student Spawner")]
     public GameObject[] student;
@@ -31,6 +32,9 @@ public class ClickerManager : MonoBehaviour
     private int studentCounter = 0;
     private int socialMoney = 0;
 
+    [Header("Lecturers and Upgrades Panel")]
+    [SerializeField] private List<Lecturer> lecturers;
+
     private void Start()
     {
         clikcerUI.UpdateStudentCounter(studentCounter);
@@ -38,6 +42,11 @@ public class ClickerManager : MonoBehaviour
         resetButton.onClick.AddListener(resetGame);
         upgradeTabButton.onClick.AddListener(clikcerUI.ToggleTabs);
         lecturerTabButton.onClick.AddListener(clikcerUI.ToggleTabs);
+
+        foreach(Lecturer lecturer in lecturers)
+        {
+            lecturerTab.AddLecturer(lecturer);
+        }
         upgrades.ForEach(upgrade => upgrade.buyButton.onClick.AddListener(() => BuyUpgrade(upgrade)));
         InvokeRepeating("FailStudentsAvalage", 10.0f, 10.0f);
     }
