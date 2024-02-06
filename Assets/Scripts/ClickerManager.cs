@@ -14,12 +14,16 @@ public class ClickerManager : MonoBehaviour
     public Button upgradeTabButton;
 
     public GameObject door;
+    public LecturerTabUI lecturerTab;
 
     [Header("Student Spawner")]
     public GameObject[] student;
 
     private int studentCounter = 0;
     private int socialMoney = 0;
+
+    [Header("Lecturers and Upgrades Panel")]
+    [SerializeField] private List<Lecturer> lecturers;
 
     private void Start()
     {
@@ -28,6 +32,11 @@ public class ClickerManager : MonoBehaviour
         resetButton.onClick.AddListener(resetGame);
         upgradeTabButton.onClick.AddListener(clikcerUI.ToggleTabs);
         lecturerTabButton.onClick.AddListener(clikcerUI.ToggleTabs);
+
+        foreach(Lecturer lecturer in lecturers)
+        {
+            lecturerTab.AddLecturer(lecturer);
+        }
     }
 
     private void failStudent()
