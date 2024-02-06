@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Serialization;
 
-public class ClikcerUI : MonoBehaviour
+public class ClickerUI : MonoBehaviour
 {
     public TextMeshProUGUI studentCounterText;
     public TextMeshProUGUI cashCounterText;

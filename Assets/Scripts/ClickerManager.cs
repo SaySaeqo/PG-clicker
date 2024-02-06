@@ -10,7 +10,7 @@ public class ClickerManager : MonoBehaviour
     public static UnityEvent<int, int> OnItemBought = new UnityEvent<int, int>();
 
     [Header("Click Managment")]
-    public ClikcerUI clickerUI;
+    public ClickerUI clickerUI;
     public Button clickerButton;
     public Button resetButton;
     public Button lecturerTabButton;
@@ -53,14 +53,7 @@ public class ClickerManager : MonoBehaviour
         }
         upgrades.ForEach(upgrade => upgrade.buyButton.onClick.AddListener(() => BuyUpgrade(upgrade)));
         InvokeRepeating("FailStudentsAvalage", 10.0f, 10.0f);
-    }
-    
-    void Update()
-    {
-
-
         OnItemBought.AddListener(BuyItem);
-
         InvokeRepeating(nameof(AddStudentsPerSecond), 0f, 1f);
     }
 
@@ -86,8 +79,6 @@ public class ClickerManager : MonoBehaviour
     private void failStudent()
     {
         studentCounter += (int)Math.Ceiling(globalStudentMultiplier);
-        clikcerUI.UpdateStudentCounter(studentCounter);
-        studentCounter++;
         clickerUI.UpdateStudentCounter(studentCounter);
 
         var doorPosition = door.transform.position;
@@ -129,6 +120,7 @@ public class ClickerManager : MonoBehaviour
         upgradeUI.Buy();
         upgradeUI.cost *= 2;
         upgradeUI.UpdateDescriptionText();
+        clickerUI.UpdateCashCounter(socialMoney);
 
         switch (upgradeUI.name)
         {
