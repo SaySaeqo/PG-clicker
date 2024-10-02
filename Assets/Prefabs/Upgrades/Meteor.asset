@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e487091cb15262208a5d8660776634a4, type: 3}
-  m_Name: Doktoranci
+  m_Name: Meteor
   m_EditorClassIdentifier: 
-  face: {fileID: 21300000, guid: 84eae83b07fc4323e84a49b6c7db97c8, type: 3}
-  upgradeName: Doktoranci
-  descripton: Avalange = 100
-  price: 15
+  face: {fileID: 21300000, guid: 919214957ee70de49a0a826d460dcbf9, type: 3}
+  upgradeName: Meteor
+  descripton: "Uwala 1000 student\xF3w"
+  price: 0

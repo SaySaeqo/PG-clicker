@@ -696,6 +696,7 @@ MonoBehaviour:
   description: {fileID: 5344162120837095326}
   price: {fileID: 7579975017826922053}
   buyButton: {fileID: 1793358152737501038}
+  buyButtonImage: {fileID: 3668385679931165571}
 --- !u!1 &6249568608281351009
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,7 +749,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6249568608281351009}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

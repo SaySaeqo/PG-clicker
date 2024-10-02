@@ -8,7 +8,7 @@ public class Upgrade : ScriptableObject
 {
     [Header("General")]
     public Sprite face;
-    public string name;
+    public string upgradeName;
 
     public string descripton;
     public int price;

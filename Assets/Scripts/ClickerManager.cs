@@ -111,7 +111,7 @@ public class ClickerManager : MonoBehaviour
 
     void BuyUpgrade(string name)
     {
-        var upgrade = upgrades.Find(u => u.name == name);
+        var upgrade = upgrades.Find(u => u.upgradeName == name);
         if (state.socialMoney < upgrade.price) return;
         state.socialMoney -= upgrade.price;
 
@@ -126,8 +126,16 @@ public class ClickerManager : MonoBehaviour
             case "Doktoranci":
                 state.studentCounterAvalange = 100;
                 break;
+            case "Zły humor rektora":
+                state.studentCounter += 100;
+                clickerUI.UpdateStudentCounter(state.studentCounter);
+                break;
+            case "Meteor":
+                state.studentCounter += 1000;
+                clickerUI.UpdateStudentCounter(state.studentCounter);
+                break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException("Działanie upgradu niezdefiniowane");
         }
     }
 }

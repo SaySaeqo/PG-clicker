@@ -18,6 +18,8 @@ public class GameState
         }
     }
 
+    private GameState() {}
+
     public int studentCounterAvalange = 0;
     public int studentCounter = 0;
     public int studentsPerSecond = 0;

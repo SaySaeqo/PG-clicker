@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeTabUI : MonoBehaviour
 {
-    [SerializeField] private RectTransform panel;
     [SerializeField] private RectTransform content;
 
     [Header("Lecturers")]
