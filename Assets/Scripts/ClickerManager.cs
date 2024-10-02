@@ -23,25 +23,17 @@ public class ClickerManager : MonoBehaviour
 
     [Header("Student Spawner")]
     public GameObject[] student;
-    
-    private double globalStudentMultiplier = 1;
-
-    private Dictionary<string, double> lecturersMultipliers = new Dictionary<string, double>();
-
-    private int studentCounterAvalange = 0;
-
-    private int studentCounter = 0;
-    private int studentsPerSecond = 0;
-    private int socialMoney = 0;
 
     [Header("Lecturers and Upgrades Panel")]
     [SerializeField] private List<Lecturer> lecturers;
     [SerializeField] private List<Upgrade> upgrades;
     private float lecturersWidth;
 
+    private GameState state => GameState.Instance;
+
     private void Start()
     {
-        clickerUI.UpdateStudentCounter(studentCounter);
+        clickerUI.UpdateStudentCounter(state.studentCounter);
         clickerButton.onClick.AddListener(failStudent);
         resetButton.onClick.AddListener(resetGame);
         upgradeTabButton.onClick.AddListener(clickerUI.ToggleTabs);
@@ -62,27 +54,27 @@ public class ClickerManager : MonoBehaviour
 
     private void AddStudentsPerSecond()
     {
-        if (studentsPerSecond > 0)
+        if (state.studentsPerSecond > 0)
         {
-            studentCounter += studentsPerSecond;
-            clickerUI.UpdateStudentCounter(studentCounter);
+            state.studentCounter += state.studentsPerSecond;
+            clickerUI.UpdateStudentCounter(state.studentCounter);
         }
     }
 
     private void BuyItem(int price, int power)
     {
-        if(price <= studentCounter)
+        if(price <= state.studentCounter)
         {
-            studentsPerSecond += power;
-            studentCounter -= price;
-            clickerUI.UpdateStudentCounter(studentCounter);
+            state.studentsPerSecond += power;
+            state.studentCounter -= price;
+            clickerUI.UpdateStudentCounter(state.studentCounter);
         }
     }
 
     private void failStudent()
     {
-        studentCounter += (int)Math.Ceiling(globalStudentMultiplier);
-        clickerUI.UpdateStudentCounter(studentCounter);
+        state.studentCounter += (int)Math.Ceiling(state.globalStudentMultiplier);
+        clickerUI.UpdateStudentCounter(state.studentCounter);
 
         var doorPosition = door.transform.position;
         var MAX_DISTANCE_FROM_DOOR = 1f;
@@ -97,42 +89,42 @@ public class ClickerManager : MonoBehaviour
 
     void FailStudentsAvalange()
     {
-        if (studentCounterAvalange > 0)
+        if (state.studentCounterAvalange > 0)
         {
-            studentCounter += (int)Math.Floor((double)studentCounter / studentCounterAvalange);
-            clickerUI.UpdateStudentCounter(studentCounter);
+            state.studentCounter += (int)Math.Floor((double)state.studentCounter / state.studentCounterAvalange);
+            clickerUI.UpdateStudentCounter(state.studentCounter);
         }
     }
 
     private void resetGame()
     {
-        var x = studentCounter;
+        var x = state.studentCounter;
         const int MIN_STUDENTS = 0;
         const int STUDENTS_PER_CASH = 10;
         int y = (x-MIN_STUDENTS) / STUDENTS_PER_CASH;
-        socialMoney += Math.Max(y, 0);
-        studentCounter = 0;
-        studentsPerSecond = 0;
-        clickerUI.UpdateStudentCounter(studentCounter);
-        clickerUI.UpdateCashCounter(socialMoney);
+        state.socialMoney += Math.Max(y, 0);
+        state.studentCounter = 0;
+        state.studentsPerSecond = 0;
+        clickerUI.UpdateStudentCounter(state.studentCounter);
+        clickerUI.UpdateCashCounter(state.socialMoney);
     }
 
     void BuyUpgrade(string name)
     {
         var upgrade = upgrades.Find(u => u.name == name);
-        if (socialMoney < upgrade.price) return;
-        socialMoney -= upgrade.price;
+        if (state.socialMoney < upgrade.price) return;
+        state.socialMoney -= upgrade.price;
 
         switch (name)
         {
             case "Super komputer":
-                globalStudentMultiplier *= 1.5;
+                state.globalStudentMultiplier *= 1.5;
                 break;
             case "Jaskinia Lebiedzia":
-                lecturersMultipliers["Lebiedz"] = 5.0;
+                state.lecturersMultipliers["Lebiedz"] = 5.0;
                 break;
             case "Doktoranci":
-                studentCounterAvalange = 100;
+                state.studentCounterAvalange = 100;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
