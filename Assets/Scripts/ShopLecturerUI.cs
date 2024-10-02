@@ -12,6 +12,7 @@ public class ShopLecturerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lecturerPower;
     [SerializeField] private TextMeshProUGUI lecturerCost;
     [SerializeField] private Button buyButton;
+    private bool isHired = false;
 
     public void UpdateUI(Lecturer lecturer)
     {
@@ -20,6 +21,8 @@ public class ShopLecturerUI : MonoBehaviour
         lecturerPower.text = "Moc: " + lecturer.power.ToString();
         lecturerCost.text = "Koszt: " + lecturer.price.ToString();
 
+        buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Wynajmij";
+        if (isHired == true) buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Awansuj";
         buyButton.onClick.AddListener(delegate { UpgradeLecturer(lecturer.price, lecturer.power); });
     }
 

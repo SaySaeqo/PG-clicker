@@ -38,6 +38,7 @@ public class ClickerManager : MonoBehaviour
 
     [Header("Lecturers and Upgrades Panel")]
     [SerializeField] private List<Lecturer> lecturers;
+    private float lecturersWidth;
 
     private void Start()
     {
@@ -46,8 +47,7 @@ public class ClickerManager : MonoBehaviour
         resetButton.onClick.AddListener(resetGame);
         upgradeTabButton.onClick.AddListener(clickerUI.ToggleTabs);
         lecturerTabButton.onClick.AddListener(clickerUI.ToggleTabs);
-
-        foreach(Lecturer lecturer in lecturers)
+        foreach (Lecturer lecturer in lecturers)
         {
             lecturerTab.AddLecturer(lecturer);
         }
@@ -109,6 +109,7 @@ public class ClickerManager : MonoBehaviour
         int y = (x-MIN_STUDENTS) / STUDENTS_PER_CASH;
         socialMoney += Math.Max(y, 0);
         studentCounter = 0;
+        studentsPerSecond = 0;
         clickerUI.UpdateStudentCounter(studentCounter);
         clickerUI.UpdateCashCounter(socialMoney);
     }
