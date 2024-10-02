@@ -7,37 +7,27 @@ using TMPro;
 
 public class ShopUpgradeUI : MonoBehaviour
 {
+    [SerializeField] private Image face;
+    [SerializeField] private TextMeshProUGUI title;
+    [SerializeField] private TextMeshProUGUI description;
+    [SerializeField] private TextMeshProUGUI price;
+    [SerializeField] private Button buyButton;
+    [SerializeField] private Image buyButtonImage;
 
-    public Button buyButton;
+    private Upgrade Upgrade;
+    public void Buy(string name){
+        ClickerManager.OnUpgradeBought?.Invoke(name);
+        print("Kupiono upgrade: " + name);
+    }
 
-    public Image buyButtonImage;
-
-    public int cost;
-
-    public string name;
-    public string descripton;
-
-    public TextMeshProUGUI descriptionText;
-
-    // Start is called before the first frame update
-    void Start()
+    public void UpdateUI(Upgrade upgrade)
     {
-        UpdateDescriptionText();
-        buyButtonImage.enabled = false;
+        upgrade = upgrade;
+        face.sprite = upgrade.face;
+        title.text = upgrade.name;
+        description.text = upgrade.descripton;
+        price.text = "Koszt: " + upgrade.price.ToString();
+        buyButton.onClick.AddListener(delegate { Buy(upgrade.name); });
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void UpdateDescriptionText(){
-        descriptionText.text = name + "\n" + descripton + "\n" + "Cost: " + cost;
-    }
-
-    public void Buy(){
-        buyButtonImage.enabled = true;
-        buyButton.interactable = false;
-    }
+    
 }

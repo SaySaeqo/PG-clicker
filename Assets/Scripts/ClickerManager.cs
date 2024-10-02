@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ClickerManager : MonoBehaviour
 {
     public static UnityEvent<int, int> OnItemBought = new UnityEvent<int, int>();
+    public static UnityEvent<string> OnUpgradeBought = new UnityEvent<string>();
 
     [Header("Click Managment")]
     public ClickerUI clickerUI;
@@ -16,12 +17,9 @@ public class ClickerManager : MonoBehaviour
     public Button lecturerTabButton;
     public Button upgradeTabButton;
 
-
-    [SerializeField] public List<ShopUpgradeUI> upgrades;
-
-
     public GameObject door;
     public LecturerTabUI lecturerTab;
+    public UpgradeTabUI upgradeTab;
 
     [Header("Student Spawner")]
     public GameObject[] student;
@@ -38,6 +36,7 @@ public class ClickerManager : MonoBehaviour
 
     [Header("Lecturers and Upgrades Panel")]
     [SerializeField] private List<Lecturer> lecturers;
+    [SerializeField] private List<Upgrade> upgrades;
     private float lecturersWidth;
 
     private void Start()
@@ -51,9 +50,13 @@ public class ClickerManager : MonoBehaviour
         {
             lecturerTab.AddLecturer(lecturer);
         }
-        upgrades.ForEach(upgrade => upgrade.buyButton.onClick.AddListener(() => BuyUpgrade(upgrade)));
-        InvokeRepeating("FailStudentsAvalage", 10.0f, 10.0f);
+        foreach (Upgrade upgrade in upgrades)
+        {
+            upgradeTab.Add(upgrade);
+        }
+        InvokeRepeating("FailStudentsAvalange", 10.0f, 10.0f);
         OnItemBought.AddListener(BuyItem);
+        OnUpgradeBought.AddListener(BuyUpgrade);
         InvokeRepeating(nameof(AddStudentsPerSecond), 0f, 1f);
     }
 
@@ -92,7 +95,7 @@ public class ClickerManager : MonoBehaviour
         created.transform.Rotate(new Vector3(0,randX > doorPosition.x ? RIGHT : 0,0));
     }
 
-    void FailStudentsAvalage()
+    void FailStudentsAvalange()
     {
         if (studentCounterAvalange > 0)
         {
@@ -114,16 +117,13 @@ public class ClickerManager : MonoBehaviour
         clickerUI.UpdateCashCounter(socialMoney);
     }
 
-    void BuyUpgrade(ShopUpgradeUI upgradeUI)
+    void BuyUpgrade(string name)
     {
-        if (socialMoney < upgradeUI.cost) return;
-        socialMoney -= upgradeUI.cost;
-        upgradeUI.Buy();
-        upgradeUI.cost *= 2;
-        upgradeUI.UpdateDescriptionText();
-        clickerUI.UpdateCashCounter(socialMoney);
+        var upgrade = upgrades.Find(u => u.name == name);
+        if (socialMoney < upgrade.price) return;
+        socialMoney -= upgrade.price;
 
-        switch (upgradeUI.name)
+        switch (name)
         {
             case "Super komputer":
                 globalStudentMultiplier *= 1.5;
