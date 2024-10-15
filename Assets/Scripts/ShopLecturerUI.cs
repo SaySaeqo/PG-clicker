@@ -42,4 +42,11 @@ public class ShopLecturerUI : MonoBehaviour
         }
         
     }
+
+    public void resetName()
+    {
+        int index = lecturerTitle.text.IndexOf(" x ");
+        if (index == -1) return;
+        lecturerTitle.text = lecturerTitle.text.Substring(0, index);
+    }
 }

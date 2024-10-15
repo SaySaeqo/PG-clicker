@@ -129,6 +129,7 @@ public class ClickerManager : MonoBehaviour
         state.studentCounter = 0;
         state.boughtLecturers = new Dictionary<string, int>();
         state.lecturersMultipliers = new Dictionary<string, double>();
+        lecturerTab.resetMultiplayers();
         clickerUI.UpdateStudentCounter(state.studentCounter);
         clickerUI.UpdateCashCounter(state.socialMoney);
     }

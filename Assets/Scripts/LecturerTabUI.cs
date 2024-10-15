@@ -10,9 +10,20 @@ public class LecturerTabUI : MonoBehaviour
     [Header("Lecturers")]
     [SerializeField] private ShopLecturerUI shopLecturerUI;
 
+    public List<ShopLecturerUI> lecturers = new List<ShopLecturerUI>();
+
     public void AddLecturer(Lecturer lecturer)
     {
         var newLecturer = Instantiate(shopLecturerUI, content);
+        lecturers.Add(newLecturer);
         newLecturer.UpdateUI(lecturer);
+    }
+
+    public void resetMultiplayers()
+    {
+        foreach (ShopLecturerUI lecturer in lecturers)
+        {
+            lecturer.resetName();
+        }
     }
 }
