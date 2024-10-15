@@ -128,6 +128,7 @@ public class ClickerManager : MonoBehaviour
         state.socialMoney += Math.Max(y, 0);
         state.studentCounter = 0;
         state.boughtLecturers = new Dictionary<string, int>();
+        state.lecturersMultipliers = new Dictionary<string, double>();
         clickerUI.UpdateStudentCounter(state.studentCounter);
         clickerUI.UpdateCashCounter(state.socialMoney);
     }
