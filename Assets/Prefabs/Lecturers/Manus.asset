@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Manus
   m_EditorClassIdentifier: 
   face: {fileID: 21300000, guid: 43aa0a87a63d5234dbcd3f2a47f17ce1, type: 3}
-  lecturerName: Manus Algorytmy i Struktury Danych
+  lecturerName: Manus
   power: 15
   price: 180

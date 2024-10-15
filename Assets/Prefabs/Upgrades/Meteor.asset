@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e487091cb15262208a5d8660776634a4, type: 3}
   m_Name: Meteor
   m_EditorClassIdentifier: 
-  face: {fileID: 21300000, guid: 919214957ee70de49a0a826d460dcbf9, type: 3}
+  face: {fileID: 21300000, guid: cec87dfed017d38efbebc68311cc2568, type: 3}
   upgradeName: Meteor
-  descripton: "Uwala 1000 student\xF3w"
-  price: 0
+  descripton: "Uwala milion student\xF3w i rujnuje PG"
+  price: 9999

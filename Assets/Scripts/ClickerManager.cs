@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ClickerManager : MonoBehaviour
 {
-    public static UnityEvent<int, int> OnItemBought = new UnityEvent<int, int>();
+    public static UnityEvent<string> OnItemBought = new UnityEvent<string>();
     public static UnityEvent<string> OnUpgradeBought = new UnityEvent<string>();
 
     [Header("Click Managment")]
@@ -16,6 +17,8 @@ public class ClickerManager : MonoBehaviour
     public Button resetButton;
     public Button lecturerTabButton;
     public Button upgradeTabButton;
+
+    private int secondsTillStartOfGame = 0;
 
     public GameObject door;
     public LecturerTabUI lecturerTab;
@@ -29,6 +32,8 @@ public class ClickerManager : MonoBehaviour
     [SerializeField] private List<Upgrade> upgrades;
     private float lecturersWidth;
 
+    [SerializeField] private TextMeshProUGUI gameResult;
+
     private GameState state => GameState.Instance;
 
     private void Start()
@@ -38,6 +43,8 @@ public class ClickerManager : MonoBehaviour
         resetButton.onClick.AddListener(resetGame);
         upgradeTabButton.onClick.AddListener(clickerUI.ToggleTabs);
         lecturerTabButton.onClick.AddListener(clickerUI.ToggleTabs);
+        lecturers.Sort();
+        upgrades.Sort();
         foreach (Lecturer lecturer in lecturers)
         {
             lecturerTab.AddLecturer(lecturer);
@@ -54,19 +61,35 @@ public class ClickerManager : MonoBehaviour
 
     private void AddStudentsPerSecond()
     {
+        secondsTillStartOfGame += 1;
         if (state.studentsPerSecond > 0)
         {
-            state.studentCounter += state.studentsPerSecond;
+            state.studentCounter += (int)(state.studentsPerSecond * state.globalStudentMultiplier);
             clickerUI.UpdateStudentCounter(state.studentCounter);
         }
     }
 
-    private void BuyItem(int price, int power)
+    private void BuyItem(string name)
     {
-        if(price <= state.studentCounter)
+        var lecturer = lecturers.Find(l => l.lecturerName == name);
+        if(lecturer.price <= state.studentCounter)
         {
-            state.studentsPerSecond += power;
-            state.studentCounter -= price;
+            state.studentCounter -= lecturer.price;
+            if (state.boughtLecturers.ContainsKey(lecturer.lecturerName))
+            {
+                if (state.lecturersMultipliers.ContainsKey(lecturer.lecturerName))
+                {
+                    state.lecturersMultipliers[lecturer.lecturerName] = state.lecturersMultipliers[lecturer.lecturerName] + 1.0;
+                }
+                else
+                {
+                    state.lecturersMultipliers.Add(lecturer.lecturerName, 2.0);
+                }
+            }
+            else
+            {
+                state.boughtLecturers.Add(lecturer.lecturerName, lecturer.power);
+            }
             clickerUI.UpdateStudentCounter(state.studentCounter);
         }
     }
@@ -104,7 +127,7 @@ public class ClickerManager : MonoBehaviour
         int y = (x-MIN_STUDENTS) / STUDENTS_PER_CASH;
         state.socialMoney += Math.Max(y, 0);
         state.studentCounter = 0;
-        state.studentsPerSecond = 0;
+        state.boughtLecturers = new Dictionary<string, int>();
         clickerUI.UpdateStudentCounter(state.studentCounter);
         clickerUI.UpdateCashCounter(state.socialMoney);
     }
@@ -121,7 +144,14 @@ public class ClickerManager : MonoBehaviour
                 state.globalStudentMultiplier *= 1.5;
                 break;
             case "Jaskinia Lebiedzia":
-                state.lecturersMultipliers["Lebiedz"] = 5.0;
+                if (state.lecturersMultipliers.ContainsKey("Lebiedź"))
+                {
+                    state.lecturersMultipliers["Lebiedz"] = state.lecturersMultipliers["Lebiedz"] * 5.0;
+                }
+                else
+                {
+                    state.lecturersMultipliers.Add("Lebiedź", 5.0);
+                }
                 break;
             case "Doktoranci":
                 state.studentCounterAvalange = 100;
@@ -131,8 +161,12 @@ public class ClickerManager : MonoBehaviour
                 clickerUI.UpdateStudentCounter(state.studentCounter);
                 break;
             case "Meteor":
-                state.studentCounter += 1000;
+                state.studentCounter += 1000_000;
                 clickerUI.UpdateStudentCounter(state.studentCounter);
+                int hours = secondsTillStartOfGame / 3600;
+                int mins = (secondsTillStartOfGame % 3600) / 60;
+                int secs = (secondsTillStartOfGame % 60);
+                gameResult.text = "You won in " + hours + "h " + mins + "min " + secs + "s!\nCongratulations !!!";
                 break;
             default:
                 throw new ArgumentOutOfRangeException("Działanie upgradu niezdefiniowane");

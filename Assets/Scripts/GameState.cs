@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,23 @@ public class GameState
 
     public int studentCounterAvalange = 0;
     public int studentCounter = 0;
-    public int studentsPerSecond = 0;
+
+    public Dictionary<string, int> boughtLecturers = new Dictionary<string, int>();
+    public int studentsPerSecond
+    {
+        get
+        {
+            int sum = 0;
+            foreach ((string name, int power) in boughtLecturers)
+            {
+                double multiplayer;
+                if (!lecturersMultipliers.TryGetValue(name, out multiplayer)) multiplayer = 1.0;
+                
+                sum += (int)(power * multiplayer);
+            }
+            return sum;
+        }
+    }
     public int socialMoney = 0;
 
     public double globalStudentMultiplier = 1;

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Dziubich
   m_EditorClassIdentifier: 
   face: {fileID: 21300000, guid: 84b0da5d20fd9e04ca2b79e445c48b52, type: 3}
-  lecturerName: "Dziubich Architektura Komputer\xF3w"
+  lecturerName: Dziubich
   power: 10
   price: 100

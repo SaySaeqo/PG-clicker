@@ -15,4 +15,4 @@ MonoBehaviour:
   face: {fileID: 21300000, guid: 37ca7d60c2a2ded1eae386b14e5b882c, type: 3}
   upgradeName: Jaskinia Lebiedzia
   descripton: Boostuje Lebiedzia x5
-  price: 10
+  price: 500
