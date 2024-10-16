@@ -19,11 +19,11 @@ public class LecturerTabUI : MonoBehaviour
         newLecturer.UpdateUI(lecturer);
     }
 
-    public void resetMultiplayers()
+    public void refreshTitles()
     {
         foreach (ShopLecturerUI lecturer in lecturers)
         {
-            lecturer.refreshName();
+            lecturer.refreshTitle();
         }
     }
 }

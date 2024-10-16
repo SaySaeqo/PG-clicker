@@ -13,30 +13,28 @@ public class ShopLecturerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lecturerCost;
     [SerializeField] private Button buyButton;
     private bool isHired = false;
-    private int price;
-
-    private string lecturerName;
+    private Lecturer lecturer;
     
-    public void refreshName()
+    public void refreshTitle()
     {
-        if (GameState.Instance.lecturersMultipliers.ContainsKey(lecturerName))
+        if (GameState.Instance.lecturersMultipliers.ContainsKey(lecturer.lecturerName))
         {
-            int count = (int)GameState.Instance.lecturersMultipliers[lecturerName];
-            lecturerTitle.text = lecturerName + " x " + count.ToString();
+            int count = (int)GameState.Instance.lecturersMultipliers[lecturer.lecturerName];
+            lecturerTitle.text = lecturer.lecturerName + " x " + count.ToString();
         }
         else
         {
-            lecturerTitle.text = lecturerName;
+            lecturerTitle.text = lecturer.lecturerName;
         }
     }
 
     public void UpdateUI(Lecturer lecturer)
     {
+        this.lecturer = lecturer;
         lecturerFace.sprite = lecturer.face;
-        lecturerTitle.text = lecturerName = lecturer.lecturerName;
+        lecturerTitle.text = lecturer.lecturerName;
         lecturerPower.text = "Moc: " + lecturer.power.ToString();
         lecturerCost.text = "Koszt: " + lecturer.price.ToString();
-        price = lecturer.price;
 
         buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Wynajmij";
         buyButton.onClick.AddListener(delegate { UpgradeLecturer(lecturer.lecturerName); });
@@ -44,12 +42,12 @@ public class ShopLecturerUI : MonoBehaviour
 
     private void UpgradeLecturer(string name)
     {
-        isHired = isHired || price <= GameState.Instance.studentCounter;
+        isHired = isHired || lecturer.price <= GameState.Instance.studentCounter;
         ClickerManager.OnItemBought?.Invoke(name);
         if (isHired == true)
         {
             buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Awansuj";
-            refreshName();
+            refreshTitle();
         }
         
     }

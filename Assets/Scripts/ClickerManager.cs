@@ -129,7 +129,7 @@ public class ClickerManager : MonoBehaviour
         state.studentCounter = 0;
         state.boughtLecturers = new Dictionary<string, int>();
         state.lecturersMultipliers = new Dictionary<string, double>();
-        lecturerTab.resetMultiplayers();
+        lecturerTab.refreshTitles();
         clickerUI.UpdateStudentCounter(state.studentCounter);
         clickerUI.UpdateCashCounter(state.socialMoney);
     }
@@ -147,15 +147,16 @@ public class ClickerManager : MonoBehaviour
                 state.globalStudentMultiplier *= 1.5;
                 break;
             case "Jaskinia Lebiedzia":
-                if (state.lecturersMultipliers.ContainsKey("Lebiedź"))
+                const string LEBIEDZ = "Lebiedź";
+                if (state.lecturersMultipliers.ContainsKey(LEBIEDZ))
                 {
-                    state.lecturersMultipliers["Lebiedź"] = state.lecturersMultipliers["Lebiedź"] * 5.0;
+                    state.lecturersMultipliers[LEBIEDZ] = state.lecturersMultipliers[LEBIEDZ] * 5.0;
                 }
                 else
                 {
-                    state.lecturersMultipliers.Add("Lebiedź", 5.0);
+                    state.lecturersMultipliers.Add(LEBIEDZ, 5.0);
                 }
-                lecturerTab.resetMultiplayers();
+                lecturerTab.refreshTitles();
                 break;
             case "Doktoranci":
                 state.studentCounterAvalange = 100;
