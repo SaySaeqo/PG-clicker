@@ -139,6 +139,7 @@ public class ClickerManager : MonoBehaviour
         var upgrade = upgrades.Find(u => u.upgradeName == name);
         if (state.socialMoney < upgrade.price) return;
         state.socialMoney -= upgrade.price;
+        clickerUI.UpdateCashCounter(state.socialMoney);
 
         switch (name)
         {
@@ -148,12 +149,13 @@ public class ClickerManager : MonoBehaviour
             case "Jaskinia Lebiedzia":
                 if (state.lecturersMultipliers.ContainsKey("Lebiedź"))
                 {
-                    state.lecturersMultipliers["Lebiedz"] = state.lecturersMultipliers["Lebiedz"] * 5.0;
+                    state.lecturersMultipliers["Lebiedź"] = state.lecturersMultipliers["Lebiedź"] * 5.0;
                 }
                 else
                 {
                     state.lecturersMultipliers.Add("Lebiedź", 5.0);
                 }
+                lecturerTab.resetMultiplayers();
                 break;
             case "Doktoranci":
                 state.studentCounterAvalange = 100;

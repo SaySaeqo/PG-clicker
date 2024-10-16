@@ -23,7 +23,7 @@ public class LecturerTabUI : MonoBehaviour
     {
         foreach (ShopLecturerUI lecturer in lecturers)
         {
-            lecturer.resetName();
+            lecturer.refreshName();
         }
     }
 }

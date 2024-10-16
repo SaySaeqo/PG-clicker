@@ -15,10 +15,25 @@ public class ShopLecturerUI : MonoBehaviour
     private bool isHired = false;
     private int price;
 
+    private string lecturerName;
+    
+    public void refreshName()
+    {
+        if (GameState.Instance.lecturersMultipliers.ContainsKey(lecturerName))
+        {
+            int count = (int)GameState.Instance.lecturersMultipliers[lecturerName];
+            lecturerTitle.text = lecturerName + " x " + count.ToString();
+        }
+        else
+        {
+            lecturerTitle.text = lecturerName;
+        }
+    }
+
     public void UpdateUI(Lecturer lecturer)
     {
         lecturerFace.sprite = lecturer.face;
-        lecturerTitle.text = lecturer.lecturerName;
+        lecturerTitle.text = lecturerName = lecturer.lecturerName;
         lecturerPower.text = "Moc: " + lecturer.power.ToString();
         lecturerCost.text = "Koszt: " + lecturer.price.ToString();
         price = lecturer.price;
@@ -34,19 +49,8 @@ public class ShopLecturerUI : MonoBehaviour
         if (isHired == true)
         {
             buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Awansuj";
-            if (GameState.Instance.lecturersMultipliers.ContainsKey(name))
-            {
-                int count = (int)GameState.Instance.lecturersMultipliers[name];
-                lecturerTitle.text = name + " x " + count.ToString();
-            }
+            refreshName();
         }
         
-    }
-
-    public void resetName()
-    {
-        int index = lecturerTitle.text.IndexOf(" x ");
-        if (index == -1) return;
-        lecturerTitle.text = lecturerTitle.text.Substring(0, index);
     }
 }
